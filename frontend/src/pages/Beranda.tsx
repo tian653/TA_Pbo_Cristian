@@ -99,7 +99,7 @@ export default function Beranda() {
               <path d="M12 2L3 7v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-9-5z" />
             </svg>
             <div>
-              <h1 className="text-2xl md:text-3xl font-bold">Peringatan Dini Longsor</h1>
+              <h1 className="text-2xl md:text-3xl font-bold">Sistem Informasi Pelaporan Bencana</h1>
               <p className="text-primary-200 mt-1 text-sm md:text-base">Kabupaten Dairi</p>
             </div>
           </div>

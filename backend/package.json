@@ -1,7 +1,7 @@
 {
   "name": "backend",
   "version": "0.0.1",
-  "description": "NestJS backend for Peringatan Dini Longsor Kabupaten Dairi",
+  "description": "NestJS backend for Sistem Informasi Pelaporan Bencana Kabupaten Dairi",
   "scripts": {
     "build": "tsc -p tsconfig.build.json",
     "start": "node dist/main",
