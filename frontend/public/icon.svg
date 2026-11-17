@@ -1,0 +1,30 @@
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="512" height="512" rx="115" fill="#2563EB"/>
+  
+  <!-- Signal Waves (Orange/Yellow) -->
+  <path d="M256 80C256 80 276 90 276 110" stroke="#FCD34D" stroke-width="12" stroke-linecap="round" fill="none"/>
+  <path d="M256 80C256 80 236 90 236 110" stroke="#FCD34D" stroke-width="12" stroke-linecap="round" fill="none"/>
+  
+  <path d="M256 70C256 70 290 85 290 120" stroke="#F59E0B" stroke-width="10" stroke-linecap="round" fill="none"/>
+  <path d="M256 70C256 70 222 85 222 120" stroke="#F59E0B" stroke-width="10" stroke-linecap="round" fill="none"/>
+  
+  <circle cx="256" cy="75" r="8" fill="#FCD34D"/>
+  
+  <!-- Mountain 1 (Left - White) -->
+  <path d="M120 320L200 180L280 320H120Z" fill="white"/>
+  
+  <!-- Mountain 2 (Right - White) -->
+  <path d="M232 320L312 160L392 320H232Z" fill="white"/>
+  
+  <!-- Road (Dark Gray/Black) -->
+  <path d="M200 320C200 320 220 380 256 450C292 380 312 320 312 320L280 320C280 320 270 360 256 400C242 360 232 320 232 320L200 320Z" fill="#1F2937"/>
+  
+  <!-- Road Yellow Stripes -->
+  <rect x="250" y="330" width="12" height="25" rx="2" fill="#FCD34D"/>
+  <rect x="250" y="365" width="12" height="25" rx="2" fill="#FCD34D"/>
+  <rect x="250" y="400" width="12" height="20" rx="2" fill="#FCD34D"/>
+  
+  <!-- Shadow under mountains -->
+  <ellipse cx="256" cy="325" rx="120" ry="15" fill="#1F2937" opacity="0.3"/>
+</svg>
