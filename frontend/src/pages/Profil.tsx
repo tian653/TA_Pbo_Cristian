@@ -1,13 +1,8 @@
 import { useState, useEffect } from 'react'
 
 const info = [
-  { label: 'Versi', value: '1.0.0' },
-  // { label: 'Pembuat', value: 'Nama Mahasiswa' },
-  // { label: 'NIM', value: '12345678' },
-  // { label: 'Institusi', value: 'Politeknik Informatika' },
-  // { label: 'Mata Kuliah', value: 'Pemrograman Perangkat Bergerak' },
   { label: 'Sumber Data', value: 'BMKG (Badan Meteorologi, Klimatologi, dan Geofisika)' },
-  { label: 'Tahun', value: '2024' },
+  { label: 'Tahun', value: '2026' },
 ]
 
 export default function Profil() {
@@ -50,7 +45,7 @@ export default function Profil() {
               </svg>
             </div>
             <div>
-              <h1 className="text-xl font-bold">Peringatan Dini Longsor</h1>
+              <h1 className="text-xl font-bold">Sistem Informasi Pelaporan Bencana</h1>
               <p className="text-primary-200 text-sm mt-0.5">Kabupaten Dairi</p>
             </div>
           </div>
