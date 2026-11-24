@@ -9,6 +9,7 @@ export default defineConfig({
       registerType: 'autoUpdate',
       includeAssets: ['favicon.ico', 'favicon.svg', 'icons/*.png'],
       manifest: {
+        id: '/',
         name: 'Bencana Dairi - Sistem Informasi Pelaporan',
         short_name: 'Bencana Dairi',
         description: 'Aplikasi pelaporan bencana alam dan jalan rusak untuk Kabupaten Dairi, Sumatera Utara',
@@ -20,22 +21,38 @@ export default defineConfig({
         scope: '/',
         icons: [
           { 
-            src: 'icons/icon-192.png', 
+            src: '/icons/icon-192.png', 
             sizes: '192x192', 
             type: 'image/png',
             purpose: 'any'
           },
           { 
-            src: 'icons/icon-512.png', 
+            src: '/icons/icon-512.png', 
             sizes: '512x512', 
             type: 'image/png', 
             purpose: 'any'
           },
           { 
-            src: 'icons/icon-512.png', 
+            src: '/icons/icon-512.png', 
             sizes: '512x512', 
             type: 'image/png', 
             purpose: 'maskable'
+          }
+        ],
+        screenshots: [
+          {
+            src: '/icons/icon-512.png',
+            sizes: '512x512',
+            type: 'image/png',
+            form_factor: 'narrow',
+            label: 'Beranda Bencana Dairi'
+          },
+          {
+            src: '/icons/icon-512.png',
+            sizes: '512x512',
+            type: 'image/png',
+            form_factor: 'wide',
+            label: 'Beranda Bencana Dairi Desktop'
           }
         ]
       },
