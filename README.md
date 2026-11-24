@@ -1,4 +1,4 @@
-# Peringatan Dini Longsor - Kabupaten Dairi
+# Sistem Informasi Bencana Alam
 
 Aplikasi PWA (Progressive Web App) untuk monitoring indikator awal kewaspadaan longsor dan pelaporan bencana di Kabupaten Dairi, Sumatera Utara.
 
