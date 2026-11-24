@@ -60,9 +60,15 @@ export default defineConfig({
         globPatterns: ['**/*.{js,css,html,ico,png,svg}'],
         runtimeCaching: [
           {
-            urlPattern: /^http:\/\/localhost:3000\/.*/i,
+            urlPattern: ({ url }) => url.port === '3000' || /^\/(desa|laporan|gempa|cuaca)/i.test(url.pathname),
             handler: 'NetworkFirst',
-            options: { cacheName: 'api-cache', networkTimeoutSeconds: 5 }
+            options: {
+              cacheName: 'api-cache',
+              networkTimeoutSeconds: 3,
+              cacheableResponse: {
+                statuses: [0, 200]
+              }
+            }
           }
         ]
       },

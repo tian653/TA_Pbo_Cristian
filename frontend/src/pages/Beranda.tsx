@@ -4,6 +4,7 @@ import { getDesa, getLaporan, getGempaTerkini } from '../api'
 import { Desa, Laporan, StatusDesa, JenisLaporan, GempaData } from '../api/types'
 import LoadingSpinner from '../components/LoadingSpinner'
 import StatusBadge from '../components/StatusBadge'
+import LogoSiagaDairi from '../components/icons/LogoSiagaDairi'
 import LongsorIcon from '../components/icons/LongsorIcon'
 import BanjirIcon from '../components/icons/BanjirIcon'
 import RetakanTanahIcon from '../components/icons/RetakanTanahIcon'
@@ -78,10 +79,22 @@ export default function Beranda() {
   const [laporan, setLaporan] = useState<Laporan[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
+  const [isOnline, setIsOnline] = useState<boolean>(navigator.onLine)
 
   // State untuk data gempa
   const [gempa, setGempa] = useState<GempaData | null>(null)
   const [gempaLoading, setGempaLoading] = useState(false)
+
+  useEffect(() => {
+    const handleOnline = () => setIsOnline(true)
+    const handleOffline = () => setIsOnline(false)
+    window.addEventListener('online', handleOnline)
+    window.addEventListener('offline', handleOffline)
+    return () => {
+      window.removeEventListener('online', handleOnline)
+      window.removeEventListener('offline', handleOffline)
+    }
+  }, [])
 
   useEffect(() => {
     setLoading(true)
@@ -89,8 +102,16 @@ export default function Beranda() {
       .then(([d, l]) => {
         setDesaList(d)
         setLaporan(l)
+        setError(null)
       })
-      .catch((e: Error) => setError(e.message))
+      .catch((e: Error) => {
+        // Ambil data tersimpan jika jaringan gagal
+        const cachedDesa = getDesa()
+        cachedDesa.then(setDesaList).catch(() => {})
+        if (desaList.length === 0) {
+          setError(e.message)
+        }
+      })
       .finally(() => setLoading(false))
 
     // Fetch gempa terkini BMKG (non-blocking)
@@ -133,37 +154,42 @@ export default function Beranda() {
         <div className="absolute -bottom-10 -left-10 w-40 h-40 bg-blue-400/10 rounded-full blur-xl pointer-events-none" />
 
         <div className="max-w-4xl mx-auto px-4 pt-12 pb-6 relative z-10">
-          <div className="flex items-center justify-between gap-3">
-            <div className="flex items-center gap-3">
-              <div className="w-11 h-11 rounded-xl bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center shadow-inner">
-                <span className="text-2xl">🏔️</span>
-              </div>
-              <div>
-                <div className="flex items-center gap-2">
-                  <h1 className="text-xl font-bold tracking-tight text-white">SiagaDairi</h1>
-                  <span className="text-[10px] font-semibold tracking-wider uppercase px-2 py-0.5 rounded-full bg-blue-500/30 border border-blue-400/30 text-blue-100">
-                    PWA
-                  </span>
-                </div>
-                <p className="text-xs text-blue-200 mt-0.5 font-medium">
-                  Peringatan Dini Longsor & Bencana Kab. Dairi
-                </p>
-              </div>
+          <div className="flex items-center gap-3">
+            {/* Logo Resmi SiagaDairi */}
+            <div className="w-12 h-12 rounded-2xl bg-white/10 backdrop-blur-md border border-white/25 flex items-center justify-center shadow-md flex-shrink-0">
+              <LogoSiagaDairi size={32} />
             </div>
-
-            {/* Quick action button */}
-            <button
-              onClick={() => navigate('/laporan/baru')}
-              className="hidden sm:inline-flex items-center gap-1.5 text-xs font-semibold bg-white text-blue-700 px-3.5 py-2 rounded-xl shadow-sm hover:bg-blue-50 active:scale-95 transition-all"
-            >
-              <span>+</span>
-              <span>Buat Laporan</span>
-            </button>
+            <div className="flex-1 min-w-0">
+              <div className="flex items-center gap-2">
+                <h1 className="text-xl font-bold tracking-tight text-white">Sistem Informasi Bencana Dairi</h1>
+                {/* <span className="text-[10px] font-semibold tracking-wider uppercase px-2 py-0.5 rounded-full bg-blue-500/30 border border-blue-400/30 text-blue-100">
+                  PWA
+                </span> */}
+                {!isOnline && (
+                  <span className="text-[10px] font-semibold uppercase px-2 py-0.5 rounded-full bg-amber-500/40 border border-amber-300/40 text-amber-200">
+                    Offline
+                  </span>
+                )}
+              </div>
+              {/* <p className="text-xs text-blue-200 mt-0.5 font-medium truncate">
+                Peringatan Dini Longsor & Bencana Kab. Dairi
+              </p> */}
+            </div>
           </div>
+
+          {/* Notifikasi Mode Offline jika terputus */}
+          {!isOnline && (
+            <div className="mt-3.5 px-3 py-2 rounded-xl bg-amber-500/20 border border-amber-400/30 text-amber-100 text-xs flex items-center gap-2">
+              <span className="text-sm">📶</span>
+              <p className="leading-tight">
+                <strong>Mode Offline:</strong> Menampilkan data tersimpan di perangkat. Sambungkan jaringan untuk pembaruan data real-time.
+              </p>
+            </div>
+          )}
 
           {/* Status Alert Banner */}
           {!loading && desaList.length > 0 && (
-            <div className="mt-5 p-3.5 rounded-2xl bg-white/10 backdrop-blur-md border border-white/15 shadow-sm">
+            <div className="mt-4 p-3.5 rounded-2xl bg-white/10 backdrop-blur-md border border-white/15 shadow-sm">
               <div className="flex items-center justify-between gap-3">
                 <div className="flex items-center gap-3">
                   <span className="relative flex h-3.5 w-3.5">
@@ -203,7 +229,7 @@ export default function Beranda() {
       <main className="max-w-4xl mx-auto px-4 py-5 space-y-6">
         {loading && <LoadingSpinner />}
 
-        {error && (
+        {error && desaList.length === 0 && (
           <div className="bg-red-50 border border-red-200 rounded-2xl p-4 text-red-700 text-sm shadow-sm">
             <div className="flex items-start gap-2.5">
               <span className="text-xl">⚠️</span>
@@ -215,7 +241,7 @@ export default function Beranda() {
           </div>
         )}
 
-        {!loading && !error && (
+        {desaList.length > 0 && (
           <>
             {/* Status Summary - 4 Kartu Responsif */}
             <section>
