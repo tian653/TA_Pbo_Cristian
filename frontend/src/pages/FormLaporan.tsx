@@ -218,7 +218,7 @@ export default function FormLaporan() {
             }}
             rows={5}
             maxLength={500}
-            placeholder="Contoh: Terjadi longsor di belakang rumah warga sekitar pukul 14.00 WIB. Material tanah dan batu menutupi jalan setapak sepanjang 5 meter. Tidak ada korban jiwa."
+            // placeholder=""
             className={`w-full border rounded-card-lg px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 resize-none ${
               errors.deskripsi ? 'border-red-400' : 'border-gray-300'
             }`}
