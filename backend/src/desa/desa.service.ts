@@ -67,18 +67,14 @@ export class DesaService {
     return { skorLaporan, skorCuaca, skor, status };
   }
 
-  /**
-   * GET /desa
-   * Mengembalikan daftar desa dengan status GABUNGAN (skorLaporan + skorCuaca).
-   */
+  
   async findAll(): Promise<Desa[]> {
     const desaList = await this.desaRepository.find({
       relations: ['laporan'],
       order: { nama: 'ASC' },
     });
 
-    // Hitung status gabungan untuk semua desa secara paralel
-    // JANGAN biarkan satu desa gagal membuat seluruh request gagal
+   
     const results = await Promise.all(
       desaList.map(async (desa) => {
         try {
