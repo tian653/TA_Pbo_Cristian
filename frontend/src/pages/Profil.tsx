@@ -158,7 +158,7 @@ export default function Profil() {
             © 2024 Peringatan Dini Longsor Kabupaten Dairi
           </p>
           <p className="text-xs text-gray-400 mt-1">
-            Dibuat dengan <span className="text-red-500">♥</span> untuk masyarakat Dairi
+            Dibuat dengan <span className="text-red-500"></span> untuk masyarakat Dairi
           </p>
         </div>
       </div>

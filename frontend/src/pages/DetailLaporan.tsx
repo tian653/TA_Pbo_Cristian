@@ -55,22 +55,22 @@ function StatusStepper({ currentStatus }: { currentStatus: StatusLaporan }) {
   const currentIndex = steps.findIndex(s => s.status === currentStatus)
 
   return (
-    <div className="bg-white rounded-card-lg shadow-card border border-gray-100 p-5">
+    <div className="bg-white rounded-card-lg shadow-card border border-gray-100 p-4 sm:p-5">
       <h3 className="text-sm font-semibold text-gray-700 mb-4">Progress Penanganan</h3>
-      <div className="flex items-center justify-between">
+      <div className="flex items-start justify-between">
         {steps.map((step, idx) => {
           const isActive = idx <= currentIndex
           const isCurrent = idx === currentIndex
           
           return (
-            <div key={step.status} className="flex-1 flex flex-col items-center relative">
+            <div key={step.status} className="flex-1 min-w-0 flex flex-col items-center relative px-0.5">
               {/* Line connector */}
               {idx < steps.length - 1 && (
-                <div className={`absolute top-5 left-1/2 w-full h-0.5 ${isActive ? 'bg-primary-600' : 'bg-gray-200'}`} style={{ zIndex: 0 }} />
+                <div className={`absolute top-4 sm:top-5 left-1/2 w-full h-0.5 ${isActive ? 'bg-primary-600' : 'bg-gray-200'}`} style={{ zIndex: 0 }} />
               )}
               
               {/* Step circle */}
-              <div className={`relative z-10 w-10 h-10 rounded-full flex items-center justify-center text-lg font-bold transition-all ${
+              <div className={`relative z-10 w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center text-sm sm:text-lg font-bold transition-all ${
                 isActive 
                   ? 'bg-primary-600 text-white shadow-md' 
                   : 'bg-gray-100 text-gray-400'
@@ -79,7 +79,7 @@ function StatusStepper({ currentStatus }: { currentStatus: StatusLaporan }) {
               </div>
               
               {/* Label */}
-              <p className={`mt-2 text-xs text-center font-medium ${isActive ? 'text-gray-800' : 'text-gray-400'}`}>
+              <p className={`mt-2 text-[11px] sm:text-xs text-center font-medium leading-tight break-words ${isActive ? 'text-gray-800' : 'text-gray-400'}`}>
                 {step.label}
               </p>
             </div>
@@ -244,13 +244,13 @@ export default function DetailLaporan() {
   const IconComponent = config.Icon
 
   return (
-    <div className="max-w-7xl mx-auto">
+    <div className="max-w-7xl mx-auto overflow-x-hidden">
       {/* Top Bar */}
       <div className="bg-white border-b border-gray-200 sticky top-0 z-10">
-        <div className="px-4 md:px-6 lg:px-8 pt-12 pb-4 flex items-center gap-3">
+        <div className="px-4 md:px-6 lg:px-8 pt-6 sm:pt-10 pb-3.5 sm:pb-4 flex items-center gap-2 sm:gap-3">
           <button
             onClick={() => navigate(-1)}
-            className="flex items-center gap-2 text-primary-600 hover:text-primary-700 text-sm font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 rounded-lg px-2 py-1"
+            className="flex items-center gap-1.5 sm:gap-2 text-primary-600 hover:text-primary-700 text-sm font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 rounded-lg px-2 py-1 flex-shrink-0"
             aria-label="Kembali"
           >
             <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -258,30 +258,30 @@ export default function DetailLaporan() {
             </svg>
             Kembali
           </button>
-          <h1 className="text-xl font-bold text-gray-800">Detail Laporan</h1>
+          <h1 className="text-lg sm:text-xl font-bold text-gray-800 truncate">Detail Laporan</h1>
         </div>
       </div>
 
-      <div className="px-4 md:px-6 lg:px-8 py-6">
+      <div className="px-4 md:px-6 lg:px-8 py-4 sm:py-6 pb-24 md:pb-8">
         {loading && <LoadingSpinner />}
         {error && <ErrorState message={error} onRetry={loadData} />}
 
         {!loading && !error && (
-          <div className="grid lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6">
             {/* Kolom Kiri & Tengah: Info Laporan */}
-            <div className="lg:col-span-2 space-y-6">
+            <div className="lg:col-span-2 space-y-4 sm:space-y-6 min-w-0">
               {/* Header Jenis & Status */}
-              <div className={`${config.color} border-2 border-current rounded-card-lg p-6`}>
-                <div className="flex items-start gap-4">
-                  <div className="flex-shrink-0 w-16 h-16 bg-white rounded-full flex items-center justify-center shadow-sm">
-                    <IconComponent className="w-8 h-8" />
+              <div className={`${config.color} border-2 border-current rounded-card-lg p-4 sm:p-6`}>
+                <div className="flex items-start gap-3 sm:gap-4">
+                  <div className="flex-shrink-0 w-12 h-12 sm:w-16 sm:h-16 bg-white rounded-full flex items-center justify-center shadow-sm">
+                    <IconComponent className="w-6 h-6 sm:w-8 sm:h-8" />
                   </div>
-                  <div className="flex-1">
-                    <div className="flex items-start justify-between gap-3 mb-2">
-                      <h2 className="text-2xl font-bold">{config.label}</h2>
+                  <div className="flex-1 min-w-0">
+                    <div className="flex flex-wrap items-center justify-between gap-2 mb-1.5 sm:mb-2">
+                      <h2 className="text-lg sm:text-2xl font-bold truncate">{config.label}</h2>
                       <StatusBadge status={laporan.status} type="laporan" size="md" />
                     </div>
-                    <p className="text-xs opacity-75">
+                    <p className="text-[11px] sm:text-xs opacity-75 break-words">
                       ID: {laporan.id.slice(0, 8)}… • Dilaporkan {formatDate(laporan.createdAt)}
                     </p>
                   </div>
@@ -340,11 +340,11 @@ export default function DetailLaporan() {
               )}
 
               {/* Deskripsi */}
-              <div className="bg-white rounded-card-lg shadow-card border border-gray-100 p-5">
+              <div className="bg-white rounded-card-lg shadow-card border border-gray-100 p-4 sm:p-5">
                 <h3 className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-3">
                   Deskripsi Kejadian
                 </h3>
-                <p className="text-gray-700 text-sm leading-relaxed whitespace-pre-line">
+                <p className="text-gray-700 text-sm leading-relaxed whitespace-pre-line break-words">
                   {laporan.deskripsi}
                 </p>
               </div>
@@ -352,17 +352,16 @@ export default function DetailLaporan() {
               {/* Foto Kejadian */}
               {laporan.fotoUrl && (
                 <div className="bg-white rounded-card-lg shadow-card border border-gray-100 overflow-hidden">
-                  <div className="p-5 pb-3">
+                  <div className="p-4 sm:p-5 pb-3">
                     <h3 className="text-xs font-semibold text-gray-400 uppercase tracking-wide">
                       Foto Kejadian
                     </h3>
                   </div>
-                  <div className="px-5 pb-5">
+                  <div className="px-4 sm:px-5 pb-4 sm:pb-5">
                     <img
                       src={laporan.fotoUrl}
                       alt={`Foto laporan ${config.label}`}
-                      className="w-full rounded-lg object-cover"
-                      style={{ maxHeight: '400px' }}
+                      className="w-full rounded-lg object-cover max-h-72 sm:max-h-[400px]"
                       loading="lazy"
                     />
                   </div>
@@ -370,18 +369,18 @@ export default function DetailLaporan() {
               )}
 
               {/* Lokasi */}
-              <div className="bg-white rounded-card-lg shadow-card border border-gray-100 p-5">
+              <div className="bg-white rounded-card-lg shadow-card border border-gray-100 p-4 sm:p-5">
                 <h3 className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-3">
                   Lokasi
                 </h3>
                 <button
                   onClick={() => navigate(`/desa/${laporan.desa?.id}`)}
-                  className="text-primary-600 hover:text-primary-700 text-sm font-semibold flex items-center gap-2 mb-2 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 rounded px-2 py-1 -mx-2"
+                  className="text-primary-600 hover:text-primary-700 text-sm font-semibold flex items-center gap-2 mb-2 text-left focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 rounded px-2 py-1 -mx-2"
                 >
-                  <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <svg className="w-5 h-5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                   </svg>
-                  {laporan.desa?.nama} — Kec. {laporan.desa?.kecamatan}
+                  <span className="break-words">{laporan.desa?.nama} — Kec. {laporan.desa?.kecamatan}</span>
                 </button>
                 {laporan.lat != null && laporan.lng != null && (
                   <p className="text-xs text-gray-500 mt-2">
@@ -397,9 +396,9 @@ export default function DetailLaporan() {
             </div>
 
             {/* Kolom Kanan: Cuaca */}
-            <div className="lg:col-span-1">
+            <div className="lg:col-span-1 min-w-0">
               {hasAdm4 && (
-                <div className="bg-white rounded-card-lg shadow-card border border-gray-100 p-5 lg:sticky lg:top-24">
+                <div className="bg-white rounded-card-lg shadow-card border border-gray-100 p-4 sm:p-5 lg:sticky lg:top-24">
                   <div className="flex items-center justify-between mb-4">
                     <div className="flex items-center gap-2">
                       <svg className="w-5 h-5 text-primary-600" fill="currentColor" viewBox="0 0 20 20">
